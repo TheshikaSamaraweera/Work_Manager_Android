@@ -4,9 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:workapp/Admin/assignment.dart';
+import 'package:workapp/Admin/lab_list.dart';
+import 'package:workapp/ResultGraphPage.dart';
 import 'package:workapp/size_config.dart';
+
+
 import 'package:workapp/style/app_style.dart';
-import 'package:workapp/todo_list.dart';
+import 'package:workapp/Admin/todo_list.dart';
 
 import 'login.dart';
 
@@ -99,7 +104,12 @@ class Services extends StatelessWidget {
             // Button 1
             ElevatedButton(
               onPressed: () {
-                // Add your action for button 4
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TodoListPage(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
@@ -122,7 +132,12 @@ class Services extends StatelessWidget {
             // Button 2
             ElevatedButton(
               onPressed: () {
-                // Add your action for button 4
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultGraphPage(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
@@ -386,7 +401,7 @@ class UpcomingAppointments extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TodoListPage(),
+                        builder: (context) => LabListPage(),
                       ),
                     );
                     // Add functionality for the Laboratory button
@@ -447,7 +462,7 @@ class UpcomingAppointments extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TodoListPage(),
+                        builder: (context) => AssignmentListPage(),
                       ),
                     );
                     // Add functionality for the Laboratory button

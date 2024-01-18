@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:workapp/home_page.dart';
+import 'package:workapp/teacher.dart';
 import 'add_lab.dart';
 
 class LabListPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _LabListPageState extends State<LabListPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => Teacher()),
             );
           },
         ),

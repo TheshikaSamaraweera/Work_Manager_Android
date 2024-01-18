@@ -5,29 +5,28 @@ import 'package:workapp/widget/bottom_bar.dart';
 import 'add_task.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class TodoListPage extends StatefulWidget {
+class StudentTodoListPage extends StatefulWidget {
   @override
-  _TodoListPageState createState() => _TodoListPageState();
+  _StudentTodoListPageState createState() => _StudentTodoListPageState();
 }
 
-class _TodoListPageState extends State<TodoListPage> {
+class _StudentTodoListPageState extends State<StudentTodoListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo List'),
+        title: Text('Student Todo List'),
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      ),
-                    );
-                    // Add functionality for the Laboratory button
-                  },
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
+            );
+          },
         ),
         actions: [
           IconButton(
@@ -71,7 +70,7 @@ class _TodoListPageState extends State<TodoListPage> {
           );
         },
       ),
-    //bottomNavigationBar: Navbar(),
+      //bottomNavigationBar: Navbar(),
     );
   }
 

@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:workapp/home_page.dart';
 
-
-class AssignmentListPage extends StatefulWidget {
+class ViewAssignmentListPage extends StatefulWidget {
   @override
-  _AssignmentListPageState createState() => _AssignmentListPageState();
+  _ViewAssignmentListPageState createState() => _ViewAssignmentListPageState();
 }
 
-class _AssignmentListPageState extends State<AssignmentListPage> {
+class _ViewAssignmentListPageState extends State<ViewAssignmentListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Assignment List'),
+        title: Text('View Assignment List'),
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -24,17 +23,6 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
             );
           },
         ),
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => AddAssignmentPage()),
-        //       );
-        //     },
-        //   ),
-        // ],
       ),
       body: Column(
         children: [
@@ -74,16 +62,6 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => AddAssignmentPage()),
-      //     );
-      //   },
-      //   backgroundColor: Colors.blue, // Set the button color to blue
-      //   child: Icon(Icons.add, color: Colors.white), // Set the icon color to white
-      // ),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:workapp/addNotification.dart';
 import 'package:workapp/home_page.dart';
+import 'package:workapp/teacher.dart';
 
 class NotificationListPage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _NotificationListPageState extends State<NotificationListPage> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => HomePage(),
+                builder: (context) => Teacher(),
               ),
             );
           },

@@ -8,13 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:workapp/ResultGraphPage.dart';
-import 'package:workapp/assignment.dart';
-import 'package:workapp/lab_list.dart';
+import 'package:workapp/Student/StudentToDo.dart';
+import 'package:workapp/Student/viewAssignment.dart';
+import 'package:workapp/Student/viewLab.dart';
 import 'package:workapp/login.dart';
 import 'package:workapp/register.dart';
 import 'package:workapp/style/app_style.dart';
 import 'package:workapp/teacher.dart';
-import 'package:workapp/todo_list.dart';
+import 'package:workapp/Admin/todo_list.dart';
 import 'package:workapp/widget/bottom_bar.dart';
 import '../data/data.dart';
 import '../size_config.dart';
@@ -75,7 +76,7 @@ class Services extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TodoListPage(),
+                    builder: (context) => StudentTodoListPage(),
                   ),
                 );
                 // Add functionality for the Laboratory button
@@ -371,7 +372,7 @@ class UpcomingAppointments extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LabListPage(),
+                        builder: (context) => ViewLabListPage(),
                       ),
                     );
                     // Add functionality for the Laboratory button
@@ -432,7 +433,7 @@ class UpcomingAppointments extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AssignmentListPage(),
+                        builder: (context) => ViewAssignmentListPage(),
                       ),
                     );
                     // Add functionality for the Laboratory button

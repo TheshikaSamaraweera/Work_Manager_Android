@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:workapp/home_page.dart';
 
-
-class LabListPage extends StatefulWidget {
+class ViewLabListPage extends StatefulWidget {
   @override
-  _LabListPageState createState() => _LabListPageState();
+  _ViewLabListPageState createState() => _ViewLabListPageState();
 }
 
-class _LabListPageState extends State<LabListPage> {
+class _ViewLabListPageState extends State<ViewLabListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lab List'),
+        title: Text('View Lab List'),
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -24,17 +23,6 @@ class _LabListPageState extends State<LabListPage> {
             );
           },
         ),
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => AddLabPage()),
-        //       );
-        //     },
-        //   ),
-        // ],
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection('labs').snapshots(),
