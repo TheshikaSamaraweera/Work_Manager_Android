@@ -4,10 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:workapp/Admin/adminAddResult.dart';
 import 'package:workapp/Admin/adminNotification.dart';
+import 'package:workapp/Admin/adminResultGraph.dart';
 import 'package:workapp/Admin/assignment.dart';
 import 'package:workapp/Admin/lab_list.dart';
-import 'package:workapp/ResultGraphPage.dart';
+import 'package:workapp/Admin/time_table.dart';
+
+import 'package:workapp/Student/ResultGraphPage.dart';
 import 'package:workapp/size_config.dart';
 
 
@@ -40,45 +44,16 @@ class _TeacherState extends State<Teacher> {
               children: const [
                 UserInfo(),
                 GetBestMedicalService(),
+                const SizedBox(height: 12),
                 Services(),
+                const SizedBox(height: 20),
               ],
             ),
           ),
           const UpcomingAppointments(),
         ],
       ),
-      bottomNavigationBar: Container(
-        color: Color.fromARGB(255, 255, 255, 255),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-          child: GNav(
-            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-            color: Color.fromRGBO(34, 33, 91, 1),
-            activeColor: Color.fromARGB(255, 255, 255, 255),
-            tabBackgroundColor: Color.fromARGB(255, 2, 182, 236),
-            gap: 8,
-            padding: EdgeInsets.all(12),
-            tabs: const [
-              GButton(
-                icon: Icons.home,
-                text: "Home",
-              ),
-              GButton(
-                icon: Icons.list_alt,
-                text: "To-Do",
-              ),
-              GButton(
-                icon: Icons.calendar_month,
-                text: "Time Table",
-              ),
-              GButton(
-                icon: Icons.person,
-                text: "Profile",
-              ),
-            ],
-          ),
-        ),
-      ),
+      
     );
   }
 }
@@ -136,7 +111,7 @@ class Services extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ResultGraphPage(),
+                    builder: (context) => AdminResultGraphPage(),
                   ),
                 );
               },
@@ -161,7 +136,12 @@ class Services extends StatelessWidget {
             // Button 3
             ElevatedButton(
               onPressed: () {
-                // Add your action for button 4
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WeekTimeTablePage(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
@@ -181,28 +161,7 @@ class Services extends StatelessWidget {
               ),
             ),
 
-            // Button 4
-            ElevatedButton(
-              onPressed: () {
-                // Add your action for button 4
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                minimumSize: Size(30, 60), // Adjust size as needed
-                padding: EdgeInsets.all(12), // Adjust padding to decrease space
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                //side: BorderSide(color: Colors.blue),
-                elevation: 5,
-                shadowColor: Colors.blue,
-              ),
-              child: Image.asset(
-                'assets/images/timetable.png',
-                height: 40, // Adjust the height of your image
-                width: 40, // Adjust the width of your image
-              ),
-            ),
+           
           ],
         ),
       ],
@@ -319,7 +278,7 @@ class GetBestMedicalService extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 180,
+            height: 200,
             decoration: BoxDecoration(
               color: Color.fromRGBO(34, 33, 91, 1),
               borderRadius: BorderRadius.all(Radius.circular(28.0)),

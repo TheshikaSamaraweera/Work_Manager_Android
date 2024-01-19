@@ -11,7 +11,7 @@ import 'package:workapp/teacher.dart';
 import 'package:workapp/Admin/todo_list.dart';
 import 'package:workapp/widget/bottom_bar.dart';
 
-import 'home.dart';
+
 import 'register.dart';
 
 Future<void> main() async {
@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primaryColor: Colors.blue[900],
       ),
-      home: Teacher(),
+      home: LoginPage(),
     );
   }
 }

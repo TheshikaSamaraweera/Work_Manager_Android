@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
           ), //yatama sudu kotuwa
 
           Container(
-            margin: EdgeInsets.only(top: 60.0, left: 20.0, right: 20.0),
+            margin: EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
             child: Column(
               children: [
                 SizedBox(
@@ -209,15 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       color: Colors.white,
                                     ),
-                                    Visibility(
-                                        maintainSize: true,
-                                        maintainAnimation: true,
-                                        maintainState: true,
-                                        visible: visible,
-                                        child: Container(
-                                            child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ))),
+                                   
                                     GestureDetector(
                                         onTap: () {
                                           Navigator.push(

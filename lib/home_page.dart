@@ -1,26 +1,24 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:io';
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:workapp/ResultGraphPage.dart';
-import 'package:workapp/Student/StudentToDo.dart';
+
+import 'package:workapp/Student/ResultGraphPage.dart';
+
+import 'package:workapp/Student/studentTodoListPage.dart';
 import 'package:workapp/Student/viewAssignment.dart';
 import 'package:workapp/Student/viewLab.dart';
 
 import 'package:workapp/login.dart';
 import 'package:workapp/notificaton.dart';
-import 'package:workapp/register.dart';
+
 import 'package:workapp/style/app_style.dart';
-import 'package:workapp/teacher.dart';
-import 'package:workapp/Admin/todo_list.dart';
-import 'package:workapp/time_table.dart';
-import 'package:workapp/widget/bottom_bar.dart';
-import '../data/data.dart';
+
+import 'package:workapp/Admin/time_table.dart';
+
 import '../size_config.dart';
 
 class HomePage extends StatelessWidget {
@@ -31,7 +29,7 @@ class HomePage extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(
-          255, 255, 255, 1), // Set the background color to yellow
+          255, 255, 255, 1), 
       body: ListView(
         children: [
           Padding(
@@ -42,15 +40,21 @@ class HomePage extends StatelessWidget {
               children: const [
                 UserInfo(),
                 NotificationBox(),
+                 const SizedBox(height: 12),
                 Services(),
+                 const SizedBox(height: 20),
               ],
             ),
           ),
           const UpcomingAssenments(),
+         
+          
         ],
       ),
-      // bottomNavigationBar: Navbar(),
+       
+       
     );
+    
   }
 }
 
@@ -208,7 +212,7 @@ class UserInfo extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 10), // Adjust the space between image and text
+          SizedBox(width: 10), 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -225,10 +229,10 @@ class UserInfo extends StatelessWidget {
         ],
       ),
       trailing: Container(
-        width: 40.0, // Adjust the width as needed
-        height: 40.0, // Adjust the height as needed
+        width: 40.0, 
+        height: 40.0, 
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0), // Small border radius
+          borderRadius: BorderRadius.circular(8.0), 
         ),
         child: ElevatedButton.icon(
           onPressed: () {
@@ -270,13 +274,13 @@ class NotificationBox extends StatelessWidget {
     SizeConfig().init(context);
     return Padding(
       padding:
-          EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical! * 3.5),
+          EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical! * 4.5),
       child: Stack(
         alignment: Alignment.bottomRight,
         children: [
           Container(
             width: double.infinity,
-            height: 180,
+            height: 200,
             decoration: BoxDecoration(
               color: Color.fromRGBO(34, 33, 91, 1),
               borderRadius: BorderRadius.all(Radius.circular(28.0)),
@@ -288,7 +292,7 @@ class NotificationBox extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.only(
                       left: SizeConfig.blockSizeHorizontal! * 6,
-                      top: SizeConfig.blockSizeVertical! * 0.1,
+                      
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,7 +335,7 @@ class NotificationBox extends StatelessWidget {
                 
               },
                style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(5.0), // Adjust the padding to change the button size
+              padding: EdgeInsets.all(5.0), 
             ),
               child: Icon(Icons.remove_red_eye),
             ),
@@ -382,7 +386,7 @@ class UpcomingAssenments extends StatelessWidget {
                         builder: (context) => ViewLabListPage(),
                       ),
                     );
-                    // Add functionality for the Laboratory button
+                    
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
@@ -411,7 +415,7 @@ class UpcomingAssenments extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                              height: 70), // Adjust the height of the SizedBox
+                              height: 70), 
                           Text(
                             '',
                             style: TextStyle(
@@ -422,13 +426,13 @@ class UpcomingAssenments extends StatelessWidget {
                         ],
                       ),
                       Positioned(
-                        bottom: -10, // Adjust the bottom position
-                        right: -50, // Adjust the right position
+                        bottom: -10, 
+                        right: -50, 
                         left: 0,
                         child: Image.asset(
                           'assets/images/lab.png',
-                          height: 110, // Adjust the height of the image
-                          width: 110, // Adjust the width of the image
+                          height: 110, 
+                          width: 110, 
                         ),
                       ),
                     ],
@@ -443,7 +447,7 @@ class UpcomingAssenments extends StatelessWidget {
                         builder: (context) => ViewAssignmentListPage(),
                       ),
                     );
-                    // Add functionality for the Laboratory button
+                  
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
@@ -472,7 +476,7 @@ class UpcomingAssenments extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                              height: 70), // Adjust the height of the SizedBox
+                              height: 70), 
                           Text(
                             '',
                             style: TextStyle(
@@ -483,13 +487,13 @@ class UpcomingAssenments extends StatelessWidget {
                         ],
                       ),
                       Positioned(
-                        bottom: -10, // Adjust the bottom position
-                        right: -50, // Adjust the right position
+                        bottom: -10, 
+                        right: -50, 
                         left: 0,
                         child: Image.asset(
                           'assets/images/assignment.png',
-                          height: 110, // Adjust the height of the image
-                          width: 110, // Adjust the width of the image
+                          height: 110, 
+                          width: 110, 
                         ),
                       ),
                     ],
@@ -503,3 +507,5 @@ class UpcomingAssenments extends StatelessWidget {
     );
   }
 }
+
+

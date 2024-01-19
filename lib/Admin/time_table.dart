@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
 import 'package:workapp/home_page.dart';
+import 'package:workapp/teacher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -160,17 +161,18 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-          ),
+          
         ],
         title: Text('Weekly Time Table'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Teacher()),
+              );
+            },
+        ),
        
       ),
       body: Column(

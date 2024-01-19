@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:workapp/Admin/adminAddResult.dart';
 import 'package:workapp/editResultPage.dart';
+import 'package:workapp/teacher.dart';
 
-class ResultGraphPage extends StatelessWidget {
+class AdminResultGraphPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Result Graph'),
+        title: Text('Admin Result Graph'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Teacher()),
+            );
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => EditResultPage()),
+                MaterialPageRoute(builder: (context) => AdminAddResultPage()),
               );
             },
           ),
@@ -56,7 +67,7 @@ class ResultGraphPage extends StatelessWidget {
                       ]),
                     ],
                   ),
-                   BarChartGroupData(
+                  BarChartGroupData(
                     x: 3,
                     barRods: [
                       BarChartRodData(y: 7, colors: [
@@ -64,7 +75,7 @@ class ResultGraphPage extends StatelessWidget {
                       ]),
                     ],
                   ),
-                   BarChartGroupData(
+                  BarChartGroupData(
                     x: 4,
                     barRods: [
                       BarChartRodData(y: 7, colors: [
@@ -86,9 +97,9 @@ class ResultGraphPage extends StatelessWidget {
                           return 'Maths';
                         case 2:
                           return 'Science';
-                          case 3:
+                        case 3:
                           return 'Flutter';
-                          case 4:
+                        case 4:
                           return 'Dart';
                         default:
                           return '';

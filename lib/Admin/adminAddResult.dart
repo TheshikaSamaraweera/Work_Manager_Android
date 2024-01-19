@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddResultPage extends StatefulWidget {
+class AdminAddResultPage extends StatefulWidget {
   @override
-  _AddResultPageState createState() => _AddResultPageState();
+  _AdminAddResultPageState createState() => _AdminAddResultPageState();
 }
 
-class _AddResultPageState extends State<AddResultPage> {
+class _AdminAddResultPageState extends State<AdminAddResultPage> {
   String _selectedModule = 'EE5302'; // Default module
   String _selectedResult = 'A+'; // Default result
 
@@ -14,7 +14,13 @@ class _AddResultPageState extends State<AddResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Result'),
+        title: Text('Admin Add Result'),
+         leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+              Navigator.pop(context);
+            },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:workapp/Student/add_task.dart';
 import 'package:workapp/home_page.dart';
+import 'package:workapp/teacher.dart';
 import 'package:workapp/widget/bottom_bar.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,7 +25,7 @@ class _TodoListPageState extends State<TodoListPage> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => Teacher(),
                       ),
                     );
                     // Add functionality for the Laboratory button

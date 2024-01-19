@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:workapp/Student/add_task.dart';
+import 'package:workapp/Student/studentAddTask.dart';
 import 'package:workapp/home_page.dart';
 import 'package:workapp/widget/bottom_bar.dart';
-import 'add_task.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StudentTodoListPage extends StatefulWidget {
@@ -34,7 +36,7 @@ class _StudentTodoListPageState extends State<StudentTodoListPage> {
             onPressed: () async {
               Map<String, String> newTask = await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddTaskPage()),
+                MaterialPageRoute(builder: (context) => StudentAddTask()),
               );
 
               if (newTask != null) {
