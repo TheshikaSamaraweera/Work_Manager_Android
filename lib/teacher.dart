@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:workapp/Admin/adminNotification.dart';
 import 'package:workapp/Admin/assignment.dart';
 import 'package:workapp/Admin/lab_list.dart';
 import 'package:workapp/ResultGraphPage.dart';
@@ -345,7 +346,7 @@ class GetBestMedicalService extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "Lorem Ipsum is simply dummy\ntext of the printing",
+                          "keep updated,\nPost notifications,\nDon't, miss anything.",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -356,6 +357,24 @@ class GetBestMedicalService extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+           Positioned(
+            bottom: SizeConfig.blockSizeVertical! * 2,
+            right: SizeConfig.blockSizeHorizontal! * 2,
+            child: ElevatedButton(
+              onPressed: () {Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AdminNotificationPage(),
+                      ),
+                    );
+                
+              },
+               style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(5.0), // Adjust the padding to change the button size
+            ),
+              child: Icon(Icons.remove_red_eye),
             ),
           ),
         ],

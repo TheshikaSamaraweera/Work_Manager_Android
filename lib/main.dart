@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:workapp/Admin/adminNotification.dart';
 import 'package:workapp/addResultPage.dart';
 import 'package:workapp/home_page.dart';
 import 'package:workapp/login.dart';
@@ -32,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primaryColor: Colors.blue[900],
       ),
-      home: HomePage(),
+      home: Teacher(),
     );
   }
 }

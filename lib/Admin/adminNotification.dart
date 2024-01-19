@@ -1,21 +1,22 @@
-// notification_list_page.dart
+// admin_notification_page.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:workapp/addNotification.dart';
 
 import 'package:workapp/home_page.dart';
+import 'package:workapp/teacher.dart';
 
-class NotificationListPage extends StatefulWidget {
+class AdminNotificationPage extends StatefulWidget {
   @override
-  _NotificationListPageState createState() => _NotificationListPageState();
+  _AdminNotificationPageState createState() => _AdminNotificationPageState();
 }
 
-class _NotificationListPageState extends State<NotificationListPage> {
+class _AdminNotificationPageState extends State<AdminNotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notification List'),
+        title: Text('Notification Listaaaaa'),
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -23,42 +24,29 @@ class _NotificationListPageState extends State<NotificationListPage> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => HomePage(),
+                builder: (context) => Teacher(),
               ),
             );
           },
         ),
         actions: [
-          // Your action buttons here
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () async {
+              Map<String, String> newNotification = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddNotificationPage()),
+              );
+
+              if (newNotification != null) {
+                await FirebaseFirestore.instance.collection('notifications').add(newNotification);
+              }
+            },
+          ),
         ],
       ),
       body: Column(
         children: [
-          Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: FutureBuilder<List<int>>(
-              // Use FutureBuilder to asynchronously get both counts
-              future: _getNotificationCounts(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  int totalNotifications = snapshot.data![0];
-                  int completedNotifications = snapshot.data![1];
-                  return Text(
-                    'You have notifications: $completedNotifications/$totalNotifications',
-                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-                  );
-                }
-              },
-            ),
-          ),
           Expanded(
             child: Container(
               child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -89,6 +77,8 @@ class _NotificationListPageState extends State<NotificationListPage> {
               ),
             ),
           ),
+          SizedBox(height: 20.0),
+          
         ],
       ),
     );
@@ -116,9 +106,15 @@ class _NotificationListPageState extends State<NotificationListPage> {
                 icon: Icon(Icons.check),
                 onPressed: () {
                   _markNotificationCompleted(notificationId);
-                  _showCongratulatoryMessage(); // Call it here
+                  _showCongratulatoryMessage();
                 },
               ),
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                _deleteNotification(notificationId);
+              },
+            ),
           ],
         ),
       ),
@@ -155,6 +151,8 @@ class _NotificationListPageState extends State<NotificationListPage> {
       },
     );
   }
+
+ 
 
   Future<List<int>> _getNotificationCounts() async {
     QuerySnapshot<Map<String, dynamic>> totalQuerySnapshot =

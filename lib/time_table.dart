@@ -1,399 +1,396 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
+import 'package:workapp/home_page.dart';
 
-
-class TimetablePage extends StatefulWidget {
-  @override
-  _TimetablePageState createState() => _TimetablePageState();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // Initialize Firebase
+  runApp(MyApp());
 }
 
-class _TimetablePageState extends State<TimetablePage> {
-  DateTime selectedDate = DateTime.now();
-  List<TimetableEntry> timetableEntries = [];
+class Task {
+  final String title;
+  final String time;
 
-  // Correct the declaration
-  String startAMPM = 'AM';
-  String endAMPM = 'AM';
-  String startTime = '08:00';
-  String endTime = '09:00';
+  Task({required this.title, required this.time});
+}
+
+class WeekTimeTablePage extends StatefulWidget {
+  @override
+  _WeekTimeTablePageState createState() => _WeekTimeTablePageState();
+}
+
+class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
+  late DateTime selectedDay;
+  late List<Task> events;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDay = DateTime.now();
+    events = [];
+    fetchTasks(selectedDay);
+  }
+
+  Future<void> fetchTasks(DateTime date) async {
+    CollectionReference timetable =
+        FirebaseFirestore.instance.collection('timetable');
+
+    QuerySnapshot<Object?> querySnapshot =
+        await timetable.where('date', isEqualTo: date).get();
+
+    List<Task> tasks = querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return Task(title: data['title'], time: data['time']);
+    }).toList();
+
+    setState(() {
+      events = tasks;
+    });
+  }
+
+  void _navigateToDayTimeTablePage(DateTime day) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DayTimeTablePage(selectedDay: day),
+      ),
+    ).then((_) {
+      // Fetch tasks again after returning from DayTimeTablePage
+      fetchTasks(selectedDay);
+    });
+  }
+
+  Future<void> saveTask(DateTime date, Task task) async {
+    CollectionReference timetable =
+        FirebaseFirestore.instance.collection('timetable');
+    await timetable.add({
+      'date': date,
+      'title': task.title,
+      'time': task.time,
+    });
+
+    // Fetch tasks again to update the list
+    fetchTasks(date);
+  }
+
+  Future<void> deleteTask(DateTime date, Task task) async {
+    CollectionReference timetable =
+        FirebaseFirestore.instance.collection('timetable');
+
+    QuerySnapshot<Object?> querySnapshot = await timetable
+        .where('date', isEqualTo: date)
+        .where('title', isEqualTo: task.title)
+        .where('time', isEqualTo: task.time)
+        .get();
+
+    querySnapshot.docs.forEach((doc) {
+      doc.reference.delete();
+    });
+
+    fetchTasks(date); // Fetch tasks again to update the list
+  }
+
+  void _addTask() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String title = '';
+        String time = '';
+
+        return AlertDialog(
+          title: Text('Add Task'),
+          content: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                onChanged: (value) {
+                  title = value;
+                },
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Time'),
+                onChanged: (value) {
+                  time = value;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (title.isNotEmpty && time.isNotEmpty) {
+                  Task newTask = Task(title: title, time: time);
+                  await saveTask(selectedDay, newTask);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text('Add'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildDayButton(DateTime day) {
+    return ElevatedButton(
+      onPressed: () {
+        _navigateToDayTimeTablePage(day);
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Colors.blue, // Set button color to blue
+      ),
+      child: Text(
+        DateFormat('EEE, MMM d').format(day),
+        style: TextStyle(fontSize: 16),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(actions: [
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+          ),
+        ],
+        title: Text('Weekly Time Table'),
+       
+      ),
+      body: Column(
+        children: [
+          // Date Buttons
+          Container(
+            height: 40, // Adjust the height as needed
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 7,
+              itemBuilder: (context, index) {
+                DateTime day = selectedDay.add(Duration(days: index));
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildDayButton(day),
+                );
+              },
+            ),
+          ),
+          // Today Works
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Today Works',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          // Events
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemCount: events.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(events[index].title),
+                  subtitle: Text(events[index].time),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      deleteTask(selectedDay, events[index]);
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addTask,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class DayTimeTablePage extends StatefulWidget {
+  final DateTime selectedDay; // Add the missing semicolon here
+
+  DayTimeTablePage({Key? key, required this.selectedDay}) : super(key: key);
+
+  @override
+  _DayTimeTablePageState createState() => _DayTimeTablePageState();
+}
+
+class _DayTimeTablePageState extends State<DayTimeTablePage> {
+  late List<Task> selectedTasks;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedTasks = [];
+    fetchTasks(widget.selectedDay);
+  }
+
+  Future<void> fetchTasks(DateTime date) async {
+    CollectionReference timetable =
+        FirebaseFirestore.instance.collection('timetable');
+    QuerySnapshot<Object?> querySnapshot =
+        await timetable.where('date', isEqualTo: date).get();
+
+    List<Task> tasks = querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return Task(title: data['title'], time: data['time']);
+    }).toList();
+
+    setState(() {
+      selectedTasks = tasks;
+    });
+  }
+
+  void _addTask() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String title = '';
+        String time = '';
+
+        return AlertDialog(
+          title: Text('Add Task'),
+          content: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                onChanged: (value) {
+                  title = value;
+                },
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Time'),
+                onChanged: (value) {
+                  time = value;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (title.isNotEmpty && time.isNotEmpty) {
+                  Task newTask = Task(title: title, time: time);
+                  await saveTask(widget.selectedDay, newTask);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text('Add'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> saveTask(DateTime date, Task task) async {
+    CollectionReference timetable =
+        FirebaseFirestore.instance.collection('timetable');
+    await timetable.add({
+      'date': date,
+      'title': task.title,
+      'time': task.time,
+    });
+    fetchTasks(date); // Fetch tasks again to update the list
+  }
+
+  Future<void> deleteTask(DateTime date, Task task) async {
+    CollectionReference timetable =
+        FirebaseFirestore.instance.collection('timetable');
+
+    QuerySnapshot<Object?> querySnapshot = await timetable
+        .where('date', isEqualTo: date)
+        .where('title', isEqualTo: task.title)
+        .where('time', isEqualTo: task.time)
+        .get();
+
+    querySnapshot.docs.forEach((doc) {
+      doc.reference.delete();
+    });
+
+    fetchTasks(date); // Fetch tasks again to update the list
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Work Timetable'),
+        title: Text(
+          'Daily Time Table - ${DateFormat('MMMM d, y').format(widget.selectedDay)}',
+        ),
+        
       ),
       body: Column(
         children: [
-          _buildDateSelection(),
           Expanded(
-            child: _buildTimetable(),
+            child: ListView.builder(
+              itemCount: selectedTasks.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  key: Key(selectedTasks[index].title),
+                  onDismissed: (direction) async {
+                    await deleteTask(widget.selectedDay, selectedTasks[index]);
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.only(right: 16.0),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(selectedTasks[index].title),
+                    subtitle: Text(selectedTasks[index].time),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showAddEntryDialog(context);
-        },
+        onPressed: _addTask,
         child: Icon(Icons.add),
       ),
     );
   }
-  Widget _buildDateSelection() {
-    return Container(
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(7, (index) {
-          DateTime date = DateTime.now().add(Duration(days: index));
-          bool isSelected = date.weekday == selectedDate.weekday;
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedDate = date;
-              });
-            },
-            child: Container(
-              color: isSelected ? Colors.blue : null,
-              padding: EdgeInsets.all(8),
-              child: Center(
-                child: Text(
-                  _getWeekdayName(date.weekday),
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: WeekTimeTablePage(),
     );
   }
-
-  String _getWeekdayName(int weekday) {
-    switch (weekday) {
-      case DateTime.monday:
-        return 'Mon';
-      case DateTime.tuesday:
-        return 'Tue';
-      case DateTime.wednesday:
-        return 'Wed';
-      case DateTime.thursday:
-        return 'Thu';
-      case DateTime.friday:
-        return 'Fri';
-      case DateTime.saturday:
-        return 'Sat';
-      case DateTime.sunday:
-        return 'Sun';
-      default:
-        return '';
-    }
-  }
-
-Widget _buildTimetable() {
-  // Filter timetableEntries for the selected day
-  List<TimetableEntry> selectedDayTimetable = timetableEntries
-      .where((entry) =>
-          _parseTime(entry.startTime).day == selectedDate.day &&
-          _parseTime(entry.startTime).month == selectedDate.month &&
-          _parseTime(entry.startTime).year == selectedDate.year)
-      .toList();
-
-  // Sort the filtered timetableEntries based on time
-  selectedDayTimetable.sort((a, b) {
-    DateTime timeA = _parseTime(a.startTime);
-    DateTime timeB = _parseTime(b.startTime);
-
-    return timeA.compareTo(timeB);
-  });
-
-  if (selectedDayTimetable.isEmpty) {
-    return Center(
-      child: Text('No entries for the selected day.'),
-    );
-  }
-  return Table(
-    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-    columnWidths: {
-      0: IntrinsicColumnWidth(),
-      1: IntrinsicColumnWidth(),
-      2: IntrinsicColumnWidth(),
-    },
-    children: [
-      TableRow(
-        children: [
-          TableCell(
-            child: Container(
-              padding: EdgeInsets.all(8),
-              color: Colors.grey,
-              child: Text(
-                'Time',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          TableCell(
-            child: Container(
-              padding: EdgeInsets.all(8),
-              color: Colors.grey,
-              child: Text(
-                'Work',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          TableCell(
-            child: Container(
-              padding: EdgeInsets.all(8),
-              color: Colors.grey,
-              child: Text(
-                'Actions',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ],
-      ),
-      for (int index = 0; index < selectedDayTimetable.length; index++)
-        TableRow(
-          children: [
-            TableCell(
-              child: Container(
-                padding: EdgeInsets.all(8),
-                child: Text(
-                  '${selectedDayTimetable[index].startTime} - ${selectedDayTimetable[index].endTime}',
-                ),
-              ),
-            ),
-            TableCell(
-              child: Container(
-                padding: EdgeInsets.all(8),
-                child: Text(
-                  selectedDayTimetable[index].work,
-                ),
-              ),
-            ),
-            TableCell(
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      _showEditEntryDialog(context, index);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      setState(() {
-                        timetableEntries.removeAt(index);
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-    ],
-  );
-}
-
-
-
-Future<void> _showAddEntryDialog(BuildContext context) async {
-  String time = '';
-  String work = '';
-
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return StatefulBuilder(
-        builder: (context, setState) {
-          return AlertDialog(
-            title: Text('Add Timetable Entry'),
-            content: Column(
-              children: [
-                _buildTimePicker('Time', (value) {
-                  time = value;
-                }, (value) {
-                  startAMPM = value;
-                }),
-                TextField(
-                  onChanged: (value) {
-                    work = value;
-                  },
-                  decoration: InputDecoration(labelText: 'Work'),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    timetableEntries.add(
-                      TimetableEntry(
-                        startTime: '$time $startAMPM',
-                        endTime: '$endTime $endAMPM',
-                        work: work,
-                      ),
-                    );
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: Text('Add'),
-              ),
-            ],
-          );
-        },
-      );
-    },
-  );
-}
-
-Future<void> _showEditEntryDialog(BuildContext context, int index) async {
-  String work = timetableEntries[index].work;
-  String editedStartTime = timetableEntries[index].startTime;
-  String editedEndTime = timetableEntries[index].endTime;
-
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return StatefulBuilder(
-        builder: (context, setState) {
-          return AlertDialog(
-            title: Text('Edit Timetable Entry'),
-            content: Column(
-              children: [
-                _buildTimePicker('Start Time', (value) {
-                  editedStartTime = value;
-                }, (value) {
-                  startAMPM = value;
-                }, initialTime: _parseTime(timetableEntries[index].startTime)),
-                _buildTimePicker('End Time', (value) {
-                  editedEndTime = value;
-                }, (value) {
-                  endAMPM = value;
-                }, initialTime: _parseTime(timetableEntries[index].endTime)),
-                TextField(
-                  onChanged: (value) {
-                    work = value;
-                  },
-                  controller: TextEditingController(text: work),
-                  decoration: InputDecoration(labelText: 'Work'),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    timetableEntries[index] = TimetableEntry(
-                      startTime: '$editedStartTime $startAMPM',
-                      endTime: '$editedEndTime $endAMPM',
-                      work: work,
-                    );
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: Text('Save'),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    timetableEntries.removeAt(index);
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: Text('Delete'),
-              ),
-            ],
-          );
-        },
-      );
-    },
-  );
-}
-
- Widget _buildTimePicker(String label, Function(String) onTimeChanged,
-    Function(String) onAMPMChanged,
-    {DateTime? initialTime}) {
-  return Row(
-    children: [
-      Text('$label:'),
-      SizedBox(width: 8),
-      DropdownButton<String>(
-       value: (initialTime?.hour ?? 0) < 12 ? 'AM' : 'PM',
-
-        onChanged: (String? value) {
-          if (value != null) {
-            onAMPMChanged(value);
-          }
-        },
-        items: ['AM', 'PM'].map((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-      SizedBox(width: 8),
-      ElevatedButton(
-        onPressed: () async {
-          TimeOfDay? pickedTime = await showTimePicker(
-            context: context,
-            initialTime: TimeOfDay.fromDateTime(initialTime ?? DateTime.now()),
-          );
-
-          if (pickedTime != null) {
-            onTimeChanged('${pickedTime.hourOfPeriod}:${pickedTime.minute}');
-          }
-        },
-        child: Text('Select Time'),
-      ),
-    ],
-  );
-}
-
-DateTime _parseTime(String time) {
-  List<String> components = time.split(' ');
-  List<String> timeComponents = components[0].split(':');
-  int hour = int.parse(timeComponents[0]);
-  int minute = int.parse(timeComponents[1]);
-
-  if (components[1].toLowerCase() == 'pm' && hour < 12) {
-    hour += 12;
-  } else if (components[1].toLowerCase() == 'am' && hour == 12) {
-    hour = 0;
-  }
-
-  return DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, hour, minute);
-}
-
-
-}
-
-class TimetableEntry {
-  final String startTime;
-  final String endTime;
-  final String work;
-
-  TimetableEntry({
-    required this.startTime,
-    required this.endTime,
-    required this.work,
-  });
 }

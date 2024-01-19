@@ -11,11 +11,14 @@ import 'package:workapp/ResultGraphPage.dart';
 import 'package:workapp/Student/StudentToDo.dart';
 import 'package:workapp/Student/viewAssignment.dart';
 import 'package:workapp/Student/viewLab.dart';
+
 import 'package:workapp/login.dart';
+import 'package:workapp/notificaton.dart';
 import 'package:workapp/register.dart';
 import 'package:workapp/style/app_style.dart';
 import 'package:workapp/teacher.dart';
 import 'package:workapp/Admin/todo_list.dart';
+import 'package:workapp/time_table.dart';
 import 'package:workapp/widget/bottom_bar.dart';
 import '../data/data.dart';
 import '../size_config.dart';
@@ -38,12 +41,12 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: const [
                 UserInfo(),
-                GetBestMedicalService(),
+                NotificationBox(),
                 Services(),
               ],
             ),
           ),
-          const UpcomingAppointments(),
+          const UpcomingAssenments(),
         ],
       ),
       // bottomNavigationBar: Navbar(),
@@ -131,7 +134,12 @@ class Services extends StatelessWidget {
             // Button 3
             ElevatedButton(
               onPressed: () {
-                // Add your action for button 4
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WeekTimeTablePage(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
@@ -151,28 +159,7 @@ class Services extends StatelessWidget {
               ),
             ),
 
-            // Button 4
-            ElevatedButton(
-              onPressed: () {
-                // Add your action for button 4
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                minimumSize: Size(30, 60), // Adjust size as needed
-                padding: EdgeInsets.all(12), // Adjust padding to decrease space
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                //side: BorderSide(color: Colors.blue),
-                elevation: 5,
-                shadowColor: Colors.blue,
-              ),
-              child: Image.asset(
-                'assets/images/timetable.png',
-                height: 40, // Adjust the height of your image
-                width: 40, // Adjust the width of your image
-              ),
-            ),
+          
           ],
         ),
       ],
@@ -275,8 +262,8 @@ class UserInfo extends StatelessWidget {
   }
 }
 
-class GetBestMedicalService extends StatelessWidget {
-  const GetBestMedicalService({super.key});
+class NotificationBox extends StatelessWidget {
+  const NotificationBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -300,23 +287,25 @@ class GetBestMedicalService extends StatelessWidget {
                   flex: 1,
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: SizeConfig.blockSizeHorizontal! * 6),
+                      left: SizeConfig.blockSizeHorizontal! * 6,
+                      top: SizeConfig.blockSizeVertical! * 0.1,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Notifications",
+                          "          Notifications",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 10),
                         Text(
-                          "Lorem Ipsum is simply dummy\ntext of the printing",
+                          "keep updated,\nCheck notifications every time,\nDon't, miss anything.",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -329,14 +318,32 @@ class GetBestMedicalService extends StatelessWidget {
               ],
             ),
           ),
+          Positioned(
+            bottom: SizeConfig.blockSizeVertical! * 2,
+            right: SizeConfig.blockSizeHorizontal! * 2,
+            child: ElevatedButton(
+              onPressed: () {Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationListPage(),
+                      ),
+                    );
+                
+              },
+               style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(5.0), // Adjust the padding to change the button size
+            ),
+              child: Icon(Icons.remove_red_eye),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-class UpcomingAppointments extends StatelessWidget {
-  const UpcomingAppointments({super.key});
+class UpcomingAssenments extends StatelessWidget {
+  const UpcomingAssenments({super.key});
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -353,7 +360,7 @@ class UpcomingAppointments extends StatelessWidget {
             horizontal: SizeConfig.blockSizeHorizontal! * 7,
           ),
           child: Text(
-            "Upcoming Appointments",
+            "Upcoming Assenments",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
