@@ -13,7 +13,7 @@ class _ViewAssignmentListPageState extends State<ViewAssignmentListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('View Assignment List'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 2, 182, 236),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -75,7 +75,7 @@ class _ViewAssignmentListPageState extends State<ViewAssignmentListPage> {
     required bool isCompleted,
   }) {
     return Card(
-      color: isCompleted ? Colors.greenAccent : Colors.white,
+      color: isCompleted ? Color.fromARGB(255, 2, 182, 236) : Colors.white,
       elevation: 3.0,
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(

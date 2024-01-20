@@ -41,7 +41,7 @@ class _NotificationListPageState extends State<NotificationListPage> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: FutureBuilder<List<int>>(
-              // Use FutureBuilder to asynchronously get both counts
+              
               future: _getNotificationCounts(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -116,7 +116,7 @@ class _NotificationListPageState extends State<NotificationListPage> {
                 icon: Icon(Icons.check),
                 onPressed: () {
                   _markNotificationCompleted(notificationId);
-                  _showCongratulatoryMessage(); // Call it here
+                  _showCongratulatoryMessage(); 
                 },
               ),
           ],

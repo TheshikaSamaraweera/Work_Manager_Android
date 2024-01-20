@@ -6,7 +6,7 @@ import 'package:workapp/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Initialize Firebase
+  await Firebase.initializeApp(); 
   runApp(MyApp());
 }
 
@@ -58,7 +58,7 @@ class _ViewTimetablePageState extends State<ViewTimetablePage> {
         builder: (context) => DayTimeTablePage(selectedDay: day),
       ),
     ).then((_) {
-      // Fetch tasks again after returning from DayTimeTablePage
+      
       fetchTasks(selectedDay);
     });
   }
@@ -72,7 +72,6 @@ class _ViewTimetablePageState extends State<ViewTimetablePage> {
       'time': task.time,
     });
 
-    // Fetch tasks again to update the list
     fetchTasks(date);
   }
 
@@ -90,7 +89,7 @@ class _ViewTimetablePageState extends State<ViewTimetablePage> {
       doc.reference.delete();
     });
 
-    fetchTasks(date); // Fetch tasks again to update the list
+    fetchTasks(date); 
   }
 
   void _addTask() {
@@ -147,7 +146,7 @@ class _ViewTimetablePageState extends State<ViewTimetablePage> {
         _navigateToDayTimeTablePage(day);
       },
       style: ElevatedButton.styleFrom(
-        primary: Colors.blue, // Set button color to blue
+        primary:  Color.fromARGB(255, 2, 182, 236),
       ),
       child: Text(
         DateFormat('EEE, MMM d').format(day),
@@ -176,7 +175,7 @@ class _ViewTimetablePageState extends State<ViewTimetablePage> {
         children: [
           // Date Buttons
           Container(
-            height: 40, // Adjust the height as needed
+            height: 40, 
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 7,
@@ -228,7 +227,7 @@ class _ViewTimetablePageState extends State<ViewTimetablePage> {
 }
 
 class DayTimeTablePage extends StatefulWidget {
-  final DateTime selectedDay; // Add the missing semicolon here
+  final DateTime selectedDay; 
 
   DayTimeTablePage({Key? key, required this.selectedDay}) : super(key: key);
 
@@ -335,7 +334,7 @@ class _DayTimeTablePageState extends State<DayTimeTablePage> {
       doc.reference.delete();
     });
 
-    fetchTasks(date); // Fetch tasks again to update the list
+    fetchTasks(date); 
   }
 
   @override

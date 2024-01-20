@@ -119,7 +119,7 @@ class UserInfo extends StatelessWidget {
     return Container(
       width: 350.0, // Set the desired width
       child: ListTile(
-        //tileColor: Colors.green, // Set the background color to green
+        
         contentPadding: EdgeInsets.zero,
         title: Row(
           children: [
@@ -153,7 +153,7 @@ class UserInfo extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 10), // Adjust the space between image and text
+            SizedBox(width: 10), 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -227,7 +227,7 @@ class GetBestMedicalService extends StatelessWidget {
                               .headline6!
                               .copyWith(
                                 color:
-                                    Colors.white, // Text color changed to white
+                                    Colors.white, 
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 1,
                               ),
@@ -240,7 +240,7 @@ class GetBestMedicalService extends StatelessWidget {
                               .headline6!
                               .copyWith(
                                 color:
-                                    Colors.white, // Text color changed to white
+                                    Colors.white,
                                 fontWeight: FontWeight.w400,
                                 letterSpacing: 1,
                                 fontSize: 11.0,
@@ -307,7 +307,7 @@ class UpcomingAppointments extends StatelessWidget {
                         builder: (context) => TodoListPage(),
                       ),
                     );
-                    // Add functionality for the Assignment button
+                    
                   },
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -372,7 +372,7 @@ class UpcomingAppointments extends StatelessWidget {
                         builder: (context) => TodoListPage(),
                       ),
                     );
-                    // Add functionality for the Laboratory button
+                    
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 131, 146, 248),

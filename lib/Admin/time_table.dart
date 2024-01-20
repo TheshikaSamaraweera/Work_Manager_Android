@@ -7,7 +7,7 @@ import 'package:workapp/teacher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Initialize Firebase
+  await Firebase.initializeApp(); 
   runApp(MyApp());
 }
 
@@ -59,7 +59,7 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
         builder: (context) => DayTimeTablePage(selectedDay: day),
       ),
     ).then((_) {
-      // Fetch tasks again after returning from DayTimeTablePage
+      
       fetchTasks(selectedDay);
     });
   }
@@ -73,7 +73,7 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
       'time': task.time,
     });
 
-    // Fetch tasks again to update the list
+    
     fetchTasks(date);
   }
 
@@ -91,7 +91,7 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
       doc.reference.delete();
     });
 
-    fetchTasks(date); // Fetch tasks again to update the list
+    fetchTasks(date); 
   }
 
   void _addTask() {
@@ -148,7 +148,7 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
         _navigateToDayTimeTablePage(day);
       },
       style: ElevatedButton.styleFrom(
-        primary: Colors.blue, // Set button color to blue
+        primary: Colors.blue, 
       ),
       child: Text(
         DateFormat('EEE, MMM d').format(day),
@@ -177,9 +177,9 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
       ),
       body: Column(
         children: [
-          // Date Buttons
+          
           Container(
-            height: 40, // Adjust the height as needed
+            height: 40, 
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 7,
@@ -192,7 +192,7 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
               },
             ),
           ),
-          // Today Works
+          
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
@@ -231,7 +231,7 @@ class _WeekTimeTablePageState extends State<WeekTimeTablePage> {
 }
 
 class DayTimeTablePage extends StatefulWidget {
-  final DateTime selectedDay; // Add the missing semicolon here
+  final DateTime selectedDay; 
 
   DayTimeTablePage({Key? key, required this.selectedDay}) : super(key: key);
 
@@ -321,7 +321,7 @@ class _DayTimeTablePageState extends State<DayTimeTablePage> {
       'title': task.title,
       'time': task.time,
     });
-    fetchTasks(date); // Fetch tasks again to update the list
+    fetchTasks(date); 
   }
 
   Future<void> deleteTask(DateTime date, Task task) async {
@@ -338,7 +338,7 @@ class _DayTimeTablePageState extends State<DayTimeTablePage> {
       doc.reference.delete();
     });
 
-    fetchTasks(date); // Fetch tasks again to update the list
+    fetchTasks(date); 
   }
 
   @override
@@ -362,7 +362,7 @@ class _DayTimeTablePageState extends State<DayTimeTablePage> {
                     await deleteTask(widget.selectedDay, selectedTasks[index]);
                   },
                   background: Container(
-                    color: Colors.red,
+                    color:Color.fromARGB(255, 2, 182, 236),
                     alignment: Alignment.centerRight,
                     padding: EdgeInsets.only(right: 16.0),
                     child: Icon(

@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                   Color.fromARGB(255, 2, 182, 236),
                   Color.fromARGB(255, 26, 115, 231),
                 ])),
-          ), //uda tabili kotuwa
+          ), 
 
           Container(
             margin:
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40))),
             child: Text(""),
-          ), //yatama sudu kotuwa
+          ), 
 
           Container(
             margin: EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),

@@ -33,15 +33,15 @@ class ResultGraphPage extends StatelessWidget {
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height /
-              2, // Set half of the screen height
+              2,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: BarChart(
               BarChartData(
                 maxY:
-                    10, // Set the maximum y-axis value according to your needs
+                    10, 
                 barGroups: [
-                  // Your BarChartGroupData objects here
+                  
                   BarChartGroupData(
                     x: 0,
                     barRods: [
@@ -88,7 +88,7 @@ class ResultGraphPage extends StatelessWidget {
                   bottomTitles: SideTitles(
                     showTitles: true,
                     getTitles: (value) {
-                      // Replace with your module names
+                      
                       switch (value.toInt()) {
                         case 0:
                           return 'English';

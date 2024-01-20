@@ -7,8 +7,8 @@ class AdminAddResultPage extends StatefulWidget {
 }
 
 class _AdminAddResultPageState extends State<AdminAddResultPage> {
-  String _selectedModule = 'EE5302'; // Default module
-  String _selectedResult = 'A+'; // Default result
+  String _selectedModule = 'EE5302'; 
+  String _selectedResult = 'A+'; 
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +68,10 @@ class _AdminAddResultPageState extends State<AdminAddResultPage> {
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                // Save the result to the database
+               
                 _saveResultToDatabase();
 
-                Navigator.of(context).pop(); // Close the page after saving
+                Navigator.of(context).pop(); 
               },
               child: Text('Save Result'),
             ),
@@ -83,16 +83,16 @@ class _AdminAddResultPageState extends State<AdminAddResultPage> {
 
   void _saveResultToDatabase() async {
     try {
-      // Add your Firestore database logic here
+      
       await FirebaseFirestore.instance.collection('results').add({
         'module': _selectedModule,
         'result': _selectedResult,
       });
 
-      // Show a success message or handle success accordingly
+      
       print('Result saved successfully!');
     } catch (error) {
-      // Handle errors, show an error message, etc.
+     
       print('Error saving result: $error');
     }
   }

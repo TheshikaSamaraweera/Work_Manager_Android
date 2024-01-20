@@ -18,7 +18,7 @@ class _StudentTodoListPageState extends State<StudentTodoListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Student Todo List'),
-        backgroundColor: Colors.blue,
+        backgroundColor:  Color.fromARGB(255, 2, 182, 236),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -78,7 +78,7 @@ class _StudentTodoListPageState extends State<StudentTodoListPage> {
 
   Widget _buildTaskTile(String taskName, String date, String time, {required String taskId, required bool isCompleted}) {
     return Card(
-      color: isCompleted ? Colors.greenAccent : Colors.white,
+      color: isCompleted ?  Color.fromARGB(255, 2, 182, 236) : Colors.white,
       elevation: 3.0,
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
@@ -97,7 +97,7 @@ class _StudentTodoListPageState extends State<StudentTodoListPage> {
                 icon: Icon(Icons.check),
                 onPressed: () {
                   _markTaskCompleted(taskId);
-                  _showCongratulatoryMessage(); // Call it here
+                  _showCongratulatoryMessage(); 
                 },
               ),
             IconButton(

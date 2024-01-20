@@ -40,9 +40,9 @@ class AdminResultGraphPage extends StatelessWidget {
             child: BarChart(
               BarChartData(
                 maxY:
-                    10, // Set the maximum y-axis value according to your needs
+                    10, 
                 barGroups: [
-                  // Your BarChartGroupData objects here
+                  
                   BarChartGroupData(
                     x: 0,
                     barRods: [

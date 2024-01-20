@@ -28,7 +28,7 @@ class _TodoListPageState extends State<TodoListPage> {
                         builder: (context) => Teacher(),
                       ),
                     );
-                    // Add functionality for the Laboratory button
+                    
                   },
         ),
         actions: [
@@ -73,7 +73,7 @@ class _TodoListPageState extends State<TodoListPage> {
           );
         },
       ),
-    //bottomNavigationBar: Navbar(),
+   
     );
   }
 
@@ -98,7 +98,7 @@ class _TodoListPageState extends State<TodoListPage> {
                 icon: Icon(Icons.check),
                 onPressed: () {
                   _markTaskCompleted(taskId);
-                  _showCongratulatoryMessage(); // Call it here
+                  _showCongratulatoryMessage(); 
                 },
               ),
             IconButton(

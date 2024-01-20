@@ -55,7 +55,7 @@ class _AddNotificationPageState extends State<AddNotificationPage> {
             ),
             SizedBox(height: 20.0),
             Container(
-              width: double.infinity * 0.2, // Take the full width
+              width: double.infinity * 0.2, 
               child: ElevatedButton(
                 onPressed: () async {
                   String notification = _notificationController.text;
@@ -68,13 +68,13 @@ class _AddNotificationPageState extends State<AddNotificationPage> {
                     'notificationTime': time,
                   });
 
-                  // Navigate back to the previous screen
+                  
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 5,
                   primary: Colors.blue,
-                  padding: EdgeInsets.symmetric(vertical: 16.0), // Adjust the vertical padding
+                  padding: EdgeInsets.symmetric(vertical: 16.0), 
                 ),
                 child: Text(
                   'Add Notification',

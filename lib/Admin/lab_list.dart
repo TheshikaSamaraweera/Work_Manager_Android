@@ -50,7 +50,7 @@ class _LabListPageState extends State<LabListPage> {
           var labs = snapshot.data!.docs;
 
           return Padding(
-            padding: const EdgeInsets.all(10.0), // Add padding here
+            padding: const EdgeInsets.all(10.0), 
             child: ListView.builder(
               itemCount: labs.length,
               itemBuilder: (context, index) {
@@ -83,7 +83,7 @@ class _LabListPageState extends State<LabListPage> {
   }) {
     Color cardColor = isCompleted ? Colors.greenAccent : Colors.white;
     String completionNote =
-        isCompleted ? 'Completed' : ''; // Note to display when completed
+        isCompleted ? 'Completed' : ''; 
 
     return Card(
       color: cardColor,

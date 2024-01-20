@@ -56,7 +56,7 @@ class _StudentAddTaskState extends State<StudentAddTask> {
             ),
             SizedBox(height: 20.0),
             Container(
-              width: double.infinity * 0.2, // Take the full width
+              width: double.infinity * 0.2, 
               child: ElevatedButton(
                 onPressed: () async {
                   String task = _taskController.text;
@@ -75,7 +75,7 @@ class _StudentAddTaskState extends State<StudentAddTask> {
                 style: ElevatedButton.styleFrom(
                   elevation: 5,
                   primary: Colors.blue,
-                  padding: EdgeInsets.symmetric(vertical: 16.0), // Adjust the vertical padding
+                  padding: EdgeInsets.symmetric(vertical: 16.0), 
                 ),
                 child: Text(
                   'Add Task',

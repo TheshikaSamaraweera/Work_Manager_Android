@@ -33,7 +33,7 @@ class _TeacherState extends State<Teacher> {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(
-          255, 255, 255, 1), // Set the background color to yellow
+          255, 255, 255, 1), 
       body: ListView(
         children: [
           Padding(
@@ -89,8 +89,8 @@ class Services extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
-                minimumSize: Size(30, 60), // Adjust size as needed
-                padding: EdgeInsets.all(12), // Adjust padding to decrease space
+                minimumSize: Size(30, 60), 
+                padding: EdgeInsets.all(12), 
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -100,8 +100,8 @@ class Services extends StatelessWidget {
               ),
               child: Image.asset(
                 'assets/images/todo.png',
-                height: 40, // Adjust the height of your image
-                width: 40, // Adjust the width of your image
+                height: 40,
+                width: 40, 
               ),
             ),
 
@@ -117,8 +117,8 @@ class Services extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
-                minimumSize: Size(30, 60), // Adjust size as needed
-                padding: EdgeInsets.all(12), // Adjust padding to decrease space
+                minimumSize: Size(30, 60), 
+                padding: EdgeInsets.all(12), 
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -128,8 +128,8 @@ class Services extends StatelessWidget {
               ),
               child: Image.asset(
                 'assets/images/result.png',
-                height: 40, // Adjust the height of your image
-                width: 40, // Adjust the width of your image
+                height: 40, 
+                width: 40, 
               ),
             ),
 
@@ -145,8 +145,8 @@ class Services extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
-                minimumSize: Size(30, 60), // Adjust size as needed
-                padding: EdgeInsets.all(12), // Adjust padding to decrease space
+                minimumSize: Size(30, 60), 
+                padding: EdgeInsets.all(12), 
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -156,8 +156,8 @@ class Services extends StatelessWidget {
               ),
               child: Image.asset(
                 'assets/images/timetable.png',
-                height: 40, // Adjust the height of your image
-                width: 40, // Adjust the width of your image
+                height: 40, 
+                width: 40, 
               ),
             ),
 
@@ -176,7 +176,7 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       tileColor: Color.fromARGB(
-          255, 255, 255, 255), // Set the background color to green
+          255, 255, 255, 255), 
       contentPadding: EdgeInsets.zero,
       title: Row(
         children: [
@@ -210,7 +210,7 @@ class UserInfo extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 10), // Adjust the space between image and text
+          SizedBox(width: 10), 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -227,10 +227,10 @@ class UserInfo extends StatelessWidget {
         ],
       ),
       trailing: Container(
-        width: 40.0, // Adjust the width as needed
-        height: 40.0, // Adjust the height as needed
+        width: 40.0, 
+        height: 40.0, 
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0), // Small border radius
+          borderRadius: BorderRadius.circular(8.0), 
         ),
         child: ElevatedButton.icon(
           onPressed: () {
@@ -244,7 +244,7 @@ class UserInfo extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0), // Small border radius
+              borderRadius: BorderRadius.circular(8.0), 
             ),
           ),
         ),
@@ -331,7 +331,7 @@ class GetBestMedicalService extends StatelessWidget {
                 
               },
                style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(5.0), // Adjust the padding to change the button size
+              padding: EdgeInsets.all(5.0), 
             ),
               child: Icon(Icons.remove_red_eye),
             ),
@@ -382,7 +382,7 @@ class UpcomingAppointments extends StatelessWidget {
                         builder: (context) => LabListPage(),
                       ),
                     );
-                    // Add functionality for the Laboratory button
+                    
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
@@ -411,7 +411,7 @@ class UpcomingAppointments extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                              height: 70), // Adjust the height of the SizedBox
+                              height: 70), 
                           Text(
                             '',
                             style: TextStyle(
@@ -422,13 +422,13 @@ class UpcomingAppointments extends StatelessWidget {
                         ],
                       ),
                       Positioned(
-                        bottom: -10, // Adjust the bottom position
-                        right: -50, // Adjust the right position
+                        bottom: -10, 
+                        right: -50, 
                         left: 0,
                         child: Image.asset(
                           'assets/images/lab.png',
-                          height: 110, // Adjust the height of the image
-                          width: 110, // Adjust the width of the image
+                          height: 110, 
+                          width: 110, 
                         ),
                       ),
                     ],
@@ -443,7 +443,7 @@ class UpcomingAppointments extends StatelessWidget {
                         builder: (context) => AssignmentListPage(),
                       ),
                     );
-                    // Add functionality for the Laboratory button
+                    
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
@@ -472,7 +472,7 @@ class UpcomingAppointments extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                              height: 70), // Adjust the height of the SizedBox
+                              height: 70), 
                           Text(
                             '',
                             style: TextStyle(
@@ -483,13 +483,13 @@ class UpcomingAppointments extends StatelessWidget {
                         ],
                       ),
                       Positioned(
-                        bottom: -10, // Adjust the bottom position
-                        right: -50, // Adjust the right position
+                        bottom: -10, 
+                        right: -50, 
                         left: 0,
                         child: Image.asset(
                           'assets/images/assignment.png',
-                          height: 110, // Adjust the height of the image
-                          width: 110, // Adjust the width of the image
+                          height: 110, 
+                          width: 110, 
                         ),
                       ),
                     ],

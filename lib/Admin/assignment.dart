@@ -82,8 +82,8 @@ class _AssignmentListPageState extends State<AssignmentListPage> {
             MaterialPageRoute(builder: (context) => AddAssignmentPage()),
           );
         },
-        backgroundColor: Colors.blue, // Set the button color to blue
-        child: Icon(Icons.add, color: Colors.white), // Set the icon color to white
+        backgroundColor: Colors.blue, 
+        child: Icon(Icons.add, color: Colors.white), 
       ),
     );
   }

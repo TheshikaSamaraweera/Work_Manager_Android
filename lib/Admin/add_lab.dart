@@ -76,14 +76,14 @@ class _AddLabPageState extends State<AddLabPage> {
       'moduleCode': moduleCode,
       'conductingDate': conductingDate,
       'time': time,
-      'completed': false, // Set the initial completion status to false
+      'completed': false, 
     });
 
     Navigator.of(context).pop();
   },
   style: ElevatedButton.styleFrom(
-    primary: Colors.blue, // Set the button color to blue
-    onPrimary: Colors.white, // Set the text color to white
+    primary: Colors.blue,
+    onPrimary: Colors.white, 
   ),
   child: Text('Add Lab'),
 ),

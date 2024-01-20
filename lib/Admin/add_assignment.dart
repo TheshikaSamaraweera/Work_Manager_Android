@@ -28,7 +28,7 @@ class _AddAssignmentPageState extends State<AddAssignmentPage> {
   TextEditingController _timeController = TextEditingController();
   TextEditingController _moduleNameController = TextEditingController();
   TextEditingController _moduleCodeController = TextEditingController();
-  AssignmentType _selectedType = AssignmentType.quiz; // Default assignment type
+  AssignmentType _selectedType = AssignmentType.quiz; 
 
   @override
   Widget build(BuildContext context) {
@@ -101,11 +101,11 @@ class _AddAssignmentPageState extends State<AddAssignmentPage> {
                 Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue, // Set the button color to blue
+                primary: Colors.blue, 
               ),
               child: Text(
                 'Add Assignment',
-                style: TextStyle(color: Colors.white), // Set the text color to white
+                style: TextStyle(color: Colors.white), 
               ),
             ),
           ],

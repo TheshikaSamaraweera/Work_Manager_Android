@@ -13,7 +13,7 @@ class _ViewLabListPageState extends State<ViewLabListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('View Lab List'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 2, 182, 236),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -37,7 +37,7 @@ class _ViewLabListPageState extends State<ViewLabListPage> {
           var labs = snapshot.data!.docs;
 
           return Padding(
-            padding: const EdgeInsets.all(10.0), // Add padding here
+            padding: const EdgeInsets.all(10.0), 
             child: ListView.builder(
               itemCount: labs.length,
               itemBuilder: (context, index) {
@@ -68,9 +68,9 @@ class _ViewLabListPageState extends State<ViewLabListPage> {
     required String labId,
     required bool isCompleted,
   }) {
-    Color cardColor = isCompleted ? Colors.greenAccent : Colors.white;
+    Color cardColor = isCompleted ?  Color.fromARGB(255, 2, 182, 236) : Colors.white;
     String completionNote =
-        isCompleted ? 'Completed' : ''; // Note to display when completed
+        isCompleted ? 'Completed' : ''; 
 
     return Card(
       color: cardColor,
